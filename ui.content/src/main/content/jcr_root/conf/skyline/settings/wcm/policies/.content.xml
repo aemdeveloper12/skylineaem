@@ -304,6 +304,22 @@
                         </assetToComponentMapping>
                     </cq:authoring>
                 </policy_1575040440977>
+                <left_container_policy
+                        jcr:primaryType="nt:unstructured"
+                        jcr:title="Left Container Policy"
+                        sling:resourceType="wcm/core/components/policy/policy"
+                        components="group:Skyline AEM - Content"
+                        layoutDisabled="false">
+                    <jcr:content jcr:primaryType="nt:unstructured"/>
+                </left_container_policy>
+                <right_container_policy
+                        jcr:primaryType="nt:unstructured"
+                        jcr:title="Right Container Policy"
+                        sling:resourceType="wcm/core/components/policy/policy"
+                        components="[group:Skyline AEM - Content,group:Skyline AEM - Form,group:Skyline AEM - Structure]"
+                        layoutDisabled="false">
+                    <jcr:content jcr:primaryType="nt:unstructured"/>
+                </right_container_policy>
             </container>
             <teaser jcr:primaryType="nt:unstructured">
                 <policy_1575031387650
@@ -331,13 +347,34 @@
             </download>
             <page jcr:primaryType="nt:unstructured">
                 <policy
-                    jcr:description="Includes the required client libraries."
-                    jcr:primaryType="nt:unstructured"
-                    jcr:title="Generic Page"
-                    sling:resourceType="wcm/core/components/policy/policy"
-                    clientlibs="[skyline.dependencies,skyline.site]"
-                    clientlibsJsHead="skyline.dependencies">
+                        cq:styleDefaultClasses="default-class-edit-template"
+                        jcr:description="Includes the required client libraries."
+                        jcr:primaryType="nt:unstructured"
+                        jcr:title="Generic Page"
+                        sling:resourceType="wcm/core/components/policy/policy"
+                        clientlibs="[skyline.dependencies,skyline.site]"
+                        clientlibsAsync="false"
+                        clientlibsJsHead="skyline.dependencies"
+                        mainContentSelector="skip-test">
                     <jcr:content jcr:primaryType="nt:unstructured"/>
+                    <cq:styleGroups jcr:primaryType="nt:unstructured">
+                        <item0
+                                cq:styleGroupLabel="Test Background Styles"
+                                jcr:primaryType="nt:unstructured">
+                            <cq:styles jcr:primaryType="nt:unstructured">
+                                <item0
+                                        cq:styleClasses="black"
+                                        cq:styleId="1772811102311"
+                                        cq:styleLabel="Background Black"
+                                        jcr:primaryType="nt:unstructured"/>
+                                <item1
+                                        cq:styleClasses="red"
+                                        cq:styleId="1772811118372"
+                                        cq:styleLabel="Background Red"
+                                        jcr:primaryType="nt:unstructured"/>
+                            </cq:styles>
+                        </item0>
+                    </cq:styleGroups>
                 </policy>
             </page>
         </components>
