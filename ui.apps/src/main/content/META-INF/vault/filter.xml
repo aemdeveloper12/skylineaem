@@ -3,4 +3,6 @@
     <filter root="/apps/skyline/clientlibs"/>
     <filter root="/apps/skyline/components"/>
     <filter root="/apps/skyline/i18n"/>
+    <filter root="/apps/skyline/pages"/>
+    <filter root="/apps/skyline/static-templates"/>
 </workspaceFilter>
