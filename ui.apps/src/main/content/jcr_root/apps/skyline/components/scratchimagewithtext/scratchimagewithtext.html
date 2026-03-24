@@ -50,3 +50,18 @@
   <div class="centered">${properties.centered}</div>
 </div>
 
+<h1>dindind;</h1>
+<sly>dindind</sly><br>
+
+<sly> Welcome to Sightly !! </sly>
+
+<h1 data-sly-test ="${pageProperties.jcr:title || inheritedPageProperties.jcr:title}" >
+  Page Title:::::${inheritedPageProperties.jcr:title}
+</h1>
+
+<sly data-sly-test.helloText="Hello"></sly>
+<h1>Saved helloText Value::: ${helloText}</h1>
+
+
+<h1>Page SubTitle:::::${pageProperties.subtitle}</h1>
+

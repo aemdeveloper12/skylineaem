@@ -1,0 +1,19 @@
+<h1>This is our Sightly learning Component</h1>
+
+<!--/* The content of this comment will be removed from the output. 
+This is our sightly comments*/-->
+
+<h1>Adding Image Component via Data sly resource</h1>
+<div data-sly-resource="${'xyz' @ resourceType='skyline/components/image'}"></div>
+
+<h1>Adding Button Component via Data sly resource</h1>
+<div data-sly-resource="${'button' @ resourceType='skyline/components/button'}"></div>
+
+<sly data-sly-test = "${properties.select == 'variation1'}">
+<sly data-sly-include = "variation1.html"></sly>
+</sly>
+
+<sly data-sly-test = "${properties.select == 'variation2'}">
+<sly data-sly-include = "variation2.html"></sly>
+</sly>
+
