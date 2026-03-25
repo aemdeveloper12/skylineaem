@@ -1,1 +1,29 @@
 <h1>Multiple Tabs Component</h1>
+
+<h1>Iterating Array of Strings for Multifield</h1>
+
+<div style="background-color:green">
+
+    <ul data-sly-repeat.item=${properties.multitext}>
+        <li>
+            ${item}
+        </li>
+    </ul>
+
+</div>
+
+<h1> Iterating for Multicomposite filed</h1>
+
+<div style="background-color: red">
+
+    <sly data-sly-repeat.multiButtons =  ${resource.getChildren}>
+
+        <div data-sly-repeat.item=${multiButtons.getChildren}>
+
+            <a href="${item.ctaLink}">${item.ctaText}</a><br>
+
+        </div>
+
+    </sly>
+
+</div>

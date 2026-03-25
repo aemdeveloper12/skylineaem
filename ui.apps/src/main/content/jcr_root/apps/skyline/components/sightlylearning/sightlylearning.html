@@ -17,3 +17,29 @@ This is our sightly comments*/-->
 <sly data-sly-include = "variation2.html"></sly>
 </sly>
 
+<h1> Learning Data sly List versus Data sly Repeat </h1>
+
+Current Page Path:::::: ${currentPage.getPath}
+
+<div style="background-color:yellow">
+
+    <ul data-sly-list.object=${currentPage.listChildren}>
+
+        <li data-sly-test = ${objectList.first}>
+            ${object.name} :::::${object.title} ::: ${objectList.count} ::: ${objectList.index} ::: First
+        </li>
+
+        <li data-sly-test = ${objectList.even}>
+            ${object.name} :::::${object.title} ::: ${objectList.count} ::: ${objectList.index}
+        </li>
+
+        <li data-sly-test = ${objectList.last}>
+            ${object.name} :::::${object.title} ::: ${objectList.count} ::: ${objectList.index} ::: Last
+        </li>
+
+    </ul>
+
+
+</div>
+
+
