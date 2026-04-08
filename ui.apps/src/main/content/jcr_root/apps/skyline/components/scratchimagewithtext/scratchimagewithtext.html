@@ -37,17 +37,18 @@
 }
 </style>
 
+<sly data-sly-use.model = "${com.training.skyline.core.models.ScratchImageWithTextModel}"></sly>
 
-<h2>${properties.title}</h2>
-<p>${properties.description @context='html'}</p>
+<h2>${model.title}</h2>//model.getTitle()
+<p>${model.description @context='html'}</p>
 
 <div class="container">
-  <img src="${properties.image}" alt="Snow" style="width:100%;">
-  <div class="bottom-left">${properties.bottomlefttext}</div>
-  <div class="top-left">${properties.toplefttext}</div>
-  <div class="top-right">${properties.toprighttext}</div>
-  <div class="bottom-right">${properties.bottomrighttext}</div>
-  <div class="centered">${properties.centered}</div>
+  <img src="${model.image}" alt="Snow" style="width:100%;">
+  <div class="bottom-left">${model.bottomlefttext}</div>
+  <div class="top-left">${model.toplefttext}</div>
+  <div class="top-right">${model.toprighttext}</div>
+  <div class="bottom-right">${model.bottomrighttext}</div>
+  <div class="centered">${model.centered}</div>
 </div>
 
 <h1>dindind;</h1>

@@ -1,0 +1,27 @@
+<h1>This is Multifields component with Sling Model</h1>
+<!--/*
+
+Cq:Dialog
+
+List of States ---- MultiField -- Array of Strings
+List of Countries with Currency- Multi Multi/ Multi Composite Field - Child Resource - List of Maps
+
+ */-->
+
+<h2> List of States</h2>
+
+<sly data-sly-use.multiModel="${'com.training.skyline.core.models.MultiFieldWithSlingModel' @value1='Hello', value2='AEM'}"></sly>
+<ul data-sly-list="${multiModel.states}">//getStates
+    <li>
+        State: ${item}
+    </li>
+</ul>
+<p data-sly-test="${!multiModel.states}">No States found</p>
+<h1>New Data: ${multiModel.newData}</h1>
+
+<h2>List of Countries and Currencies</h2>
+<ul data-sly-list="${multiModel.multicountryandcurrency}">
+    <li>${item.country}:::: ${item.currency}
+    </li>
+</ul>
+<p data-sly-test="${!multiModel.multicountryandcurrency}">No country/currency data available</p>
