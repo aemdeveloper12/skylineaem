@@ -37,9 +37,9 @@
 }
 </style>
 
-<sly data-sly-use.model = "${com.training.skyline.core.models.ScratchImageWithTextModel}"></sly>
+<sly data-sly-use.model = "com.training.skyline.core.models.ScratchImageWithTextModel"></sly>
 
-<h2>${model.title}</h2>//model.getTitle()
+<h2>${model.title}</h2>
 <p>${model.description @context='html'}</p>
 
 <div class="container">

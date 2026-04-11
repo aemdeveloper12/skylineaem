@@ -1,11 +1,13 @@
 package com.training.skyline.core.models;
 
+import lombok.Getter;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.models.annotations.DefaultInjectionStrategy;
 import org.apache.sling.models.annotations.Model;
 import org.apache.sling.models.annotations.Required;
 import org.apache.sling.models.annotations.injectorspecific.ValueMapValue;
 
+@Getter
 @Model(adaptables= Resource.class,defaultInjectionStrategy = DefaultInjectionStrategy.OPTIONAL)
 public class ScratchImageWithTextModel {
 
@@ -33,36 +35,4 @@ public class ScratchImageWithTextModel {
 
     @ValueMapValue
     private String bottomrighttext;
-
-    public String getTitle() {
-        return title;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public String getImage() {
-        return image;
-    }
-
-    public String getToplefttext() {
-        return toplefttext;
-    }
-
-    public String getBottomlefttext() {
-        return bottomlefttext;
-    }
-
-    public String getCentered() {
-        return centered;
-    }
-
-    public String getToprighttext() {
-        return toprighttext;
-    }
-
-    public String getBottomrighttext() {
-        return bottomrighttext;
-    }
 }
