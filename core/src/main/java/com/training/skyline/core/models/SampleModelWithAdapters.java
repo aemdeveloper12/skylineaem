@@ -2,6 +2,7 @@ package com.training.skyline.core.models;
 
 import com.day.cq.wcm.api.Page;
 import com.day.cq.wcm.api.PageManager;
+import com.training.skyline.core.services.MyFirstServicePrintLog;
 import lombok.Getter;
 import org.apache.sling.api.SlingHttpServletRequest;
 import org.apache.sling.api.resource.Resource;
@@ -9,6 +10,7 @@ import org.apache.sling.api.resource.ResourceResolver;
 import org.apache.sling.api.resource.ValueMap;
 import org.apache.sling.models.annotations.DefaultInjectionStrategy;
 import org.apache.sling.models.annotations.Model;
+import org.apache.sling.models.annotations.injectorspecific.OSGiService;
 import org.apache.sling.models.annotations.injectorspecific.Self;
 import org.apache.sling.models.annotations.injectorspecific.SlingObject;
 import org.apache.sling.models.annotations.injectorspecific.ValueMapValue;
@@ -29,6 +31,9 @@ public class SampleModelWithAdapters implements SampleInterface {
     @ValueMapValue
     private String path;
 
+    @OSGiService //@Inject
+    MyFirstServicePrintLog myFirstServicePrintLog;
+
     @Self
     SlingHttpServletRequest slingHttpServletRequest;
 
@@ -40,9 +45,14 @@ public class SampleModelWithAdapters implements SampleInterface {
 
     private String pageTitleViaSling;
     private  String pageTitleViaAEM;
+    private String stringFromService;
 
     @PostConstruct
     public void init() {
+
+        //Assigning via Sling model
+        stringFromService = myFirstServicePrintLog.PrintLog();
+
         PageManager pageManager = resourceResolver.adaptTo(PageManager.class);
         if (pageManager != null) {
             Page currentPage = pageManager.getContainingPage(currentResource);
