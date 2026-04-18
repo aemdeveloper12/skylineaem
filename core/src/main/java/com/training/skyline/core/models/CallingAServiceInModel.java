@@ -1,6 +1,7 @@
 package com.training.skyline.core.models;
 
 import com.training.skyline.core.services.GetPathService;
+import com.training.skyline.core.services.PaymentConfigs;
 import com.training.skyline.core.services.ReadDummyJson;
 import lombok.Getter;
 import org.apache.sling.api.SlingHttpServletRequest;
@@ -15,6 +16,7 @@ import javax.annotation.PostConstruct;
 public class CallingAServiceInModel {
     private String pathOfAsset;
     private String datafromUrl;
+    private String paymentUrl;
 
     @OSGiService(filter="(component.name=com.training.skyline.core.services.impl.GetPathServiceImpl1)")
     GetPathService getPathService;
@@ -22,9 +24,13 @@ public class CallingAServiceInModel {
     @OSGiService
     ReadDummyJson readDummyJson;
 
+    @OSGiService
+    PaymentConfigs pay;
+
     @PostConstruct
     public void init() throws  Exception{
         pathOfAsset = getPathService.getPathOfTheAsset();
         datafromUrl = readDummyJson.getDatafromDummyJsonApi();
+        paymentUrl=pay.getPaymentUrl();
     }
 }

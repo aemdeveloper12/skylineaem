@@ -1,8 +1,10 @@
 package com.training.skyline.core.services.impl;
 
 
+import com.training.skyline.core.services.PaymentConfigs;
 import com.training.skyline.core.services.ReadDummyJson;
 import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.Reference;
 
 
 import java.io.BufferedReader;
@@ -13,10 +15,13 @@ import java.net.URL;
 @Component(service = ReadDummyJson.class, immediate = true)
 public class ReadDummyJsonImpl implements ReadDummyJson {
 
+    @Reference
+    PaymentConfigs paymentConfigs;
+
     @Override
     public String getDatafromDummyJsonApi() throws Exception {
 
-        URL url = new URL("https://dummyjson.com/todos/1");
+        URL url = new URL(paymentConfigs.getJsonURL());
         HttpURLConnection con = (HttpURLConnection) url.openConnection();
 
         con.setRequestMethod("GET");
