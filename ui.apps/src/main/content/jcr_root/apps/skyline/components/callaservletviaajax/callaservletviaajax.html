@@ -1,0 +1,40 @@
+<h2>Call Resource Type Servlet via AJAX</h2>
+
+<button type="button" onclick="callServlet()">Save JSON in AEM</button>
+
+<div id="result" style="margin-top:20px; font-weight:bold;"></div>
+
+<script>
+  function callServlet() {
+
+    // This is the current component resource path
+    //var servletUrl ="/bin/practice.json";
+    var servletUrl = "${resource.path @ context='uri'}.json";
+    console.log("Servlet URL ::: " + servletUrl);
+
+    // Fetch CSRF token
+    fetch("/libs/granite/csrf/token.json")
+      .then(res => res.json())
+      .then(tokenData => {
+
+        // Call servlet with CSRF token
+        return fetch(servletUrl, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "CSRF-Token": tokenData.token
+          }
+        });
+      })
+      .then(res => res.json())
+      .then(data => {
+        document.getElementById("result").innerHTML =
+          "Response : " + JSON.stringify(data);
+        alert("JSON saved successfully!");
+      })
+      .catch(error => {
+        console.error(error);
+        document.getElementById("result").innerHTML = "Error calling servlet";
+      });
+  }
+</script>
