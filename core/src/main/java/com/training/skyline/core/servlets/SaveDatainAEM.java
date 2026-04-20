@@ -1,6 +1,7 @@
 package com.training.skyline.core.servlets;
 
 import com.training.skyline.core.services.ReadDummyJson;
+import com.training.skyline.core.utils.CommonUtils;
 import org.apache.sling.api.SlingHttpServletRequest;
 import org.apache.sling.api.SlingHttpServletResponse;
 import org.apache.sling.api.resource.ModifiableValueMap;
@@ -45,7 +46,8 @@ public class SaveDatainAEM extends SlingAllMethodsServlet {
 
         try {
             // Get Resolver
-            resolver = request.getResourceResolver();
+           // resolver = request.getResourceResolver();
+            resolver = CommonUtils.getWriteResolver(resolverFactory);
 
             // Get data from 3rd-party API
             String jsonFromService = readDummyJson.getDatafromDummyJsonApi();
