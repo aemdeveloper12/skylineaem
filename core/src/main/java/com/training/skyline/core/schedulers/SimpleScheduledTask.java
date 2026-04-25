@@ -1,65 +1,66 @@
-/*
- *  Copyright 2015 Adobe Systems Incorporated
- *
- *  Licensed under the Apache License, Version 2.0 (the "License");
- *  you may not use this file except in compliance with the License.
- *  You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- *  Unless required by applicable law or agreed to in writing, software
- *  distributed under the License is distributed on an "AS IS" BASIS,
- *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *  See the License for the specific language governing permissions and
- *  limitations under the License.
- */
 package com.training.skyline.core.schedulers;
 
-import org.osgi.service.component.annotations.Activate;
-import org.osgi.service.component.annotations.Component;
-import org.osgi.service.metatype.annotations.AttributeDefinition;
-import org.osgi.service.metatype.annotations.Designate;
-import org.osgi.service.metatype.annotations.ObjectClassDefinition;
+import org.apache.sling.event.jobs.JobManager;
+import org.osgi.service.component.annotations.*;
+import org.osgi.service.metatype.annotations.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-/**
- * A simple demo for cron-job like tasks that get executed regularly.
- * It also demonstrates how property values can be set. Users can
- * set the property values in /system/console/configMgr
- */
-@Designate(ocd=SimpleScheduledTask.Config.class)
-@Component(service=Runnable.class)
+import java.util.HashMap;
+import java.util.Map;
+
+@Designate(ocd = SimpleScheduledTask.Config.class)
+@Component(service = Runnable.class)
 public class SimpleScheduledTask implements Runnable {
 
-    @ObjectClassDefinition(name="A scheduled task",
-                           description = "Simple demo for cron-job like task with properties")
-    public static @interface Config {
+    private static final Logger LOGGER = LoggerFactory.getLogger(SimpleScheduledTask.class);
 
-        @AttributeDefinition(name = "Cron-job expression")
+    private static final String JOB_TOPIC = "practice/job";
+
+    @Reference
+    private JobManager jobManager;
+
+    private String myParameter;
+
+    @ObjectClassDefinition(
+            name = "Skyline Scheduled Job",
+            description = "Triggers Sling Job for background processing"
+    )
+    public @interface Config {
+
+        @AttributeDefinition(name = "Cron Expression")
         String scheduler_expression() default "*/30 * * * * ?";
 
-        @AttributeDefinition(name = "Concurrent task",
-                             description = "Whether or not to schedule this task concurrently")
+        @AttributeDefinition(name = "Allow Concurrent Execution")
         boolean scheduler_concurrent() default false;
 
-        @AttributeDefinition(name = "A parameter",
-                             description = "Can be configured in /system/console/configMgr")
+        @AttributeDefinition(name = "Custom Parameter")
         String myParameter() default "";
     }
 
-    private final Logger logger = LoggerFactory.getLogger(getClass());
+    @Activate
+    protected void activate(Config config) {
+        this.myParameter = config.myParameter();
+        LOGGER.info("Scheduler activated with parameter: {}", myParameter);
+    }
 
-    private String myParameter;
-    
     @Override
     public void run() {
-        logger.debug("SimpleScheduledTask is now running, myParameter='{}'", myParameter);
-    }
 
-    @Activate
-    protected void activate(final Config config) {
-        myParameter = config.myParameter();
-    }
+        LOGGER.info("Scheduler triggered. Preparing job...");
 
+        try {
+            Map<String, Object> payload = new HashMap<>();
+            payload.put("data", "test");
+            payload.put("path", "/content/skyline/us/en");
+            payload.put("timestamp", System.currentTimeMillis());
+
+            jobManager.addJob(JOB_TOPIC, payload);
+
+            LOGGER.info("Job successfully added to topic: {}", JOB_TOPIC);
+
+        } catch (Exception e) {
+            LOGGER.error("Error while adding job", e);
+        }
+    }
 }
